@@ -33,15 +33,19 @@ i=0
             if( msg.ev === 'status' ){
                 return console.log('Status Update:', msg.message)
             }
-           // console.log(msg)
             msgd = msg
             console.log(i++)
             console.log(typeof msg)
-            console.log(msg.p)
+            console.log("Pair: "+msg.pair)
+            console.log("Price: "+msg.p)
+            console.log("Timestamp: "+msg.t)
+            console.log("Size: "+msg.s)
+            console.log("ID: "+msg.i)
+            console.log("Exchange ID: "+msg.x)
+           
         })
     })
     ws_server.clients.forEach((client) => {
-     // client.send(new Date().toTimeString());
-      client.send(msgd.p);
+    client.send("Object: "+i+" {Pair: "+msgd.pair+" Price: "+msgd.p+" Timestamp: "+msgd.t+" Size: "+msgd.s+" ID: "+msgd.i+"}");
     });
   }, 1000);
