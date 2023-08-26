@@ -33,19 +33,25 @@ i=0
             if( msg.ev === 'status' ){
                 return console.log('Status Update:', msg.message)
             }
+           // console.log(msg)
             msgd = msg
             console.log(i++)
-            console.log(typeof msg)
-            console.log("Pair: "+msg.pair)
-            console.log("Price: "+msg.p)
-            console.log("Timestamp: "+msg.t)
-            console.log("Size: "+msg.s)
-            console.log("ID: "+msg.i)
-            console.log("Exchange ID: "+msg.x)
-           
+          //  console.log(msg)
+          //  console.log(typeof msg)
+          //  console.log("Pair: "+msg.pair)
+          //  console.log("Price: "+msg.p)
+           // console.log("Timestamp: "+msg.t)
+           // console.log("Size: "+msg.s)
+           // console.log(msg.c)
+           // console.log("ID: "+msg.i)
+           // console.log("Exchange ID: "+msg.x)
+           // console.log(msg.r)
         })
     })
     ws_server.clients.forEach((client) => {
-    client.send("Object: "+i+" {Pair: "+msgd.pair+" Price: "+msgd.p+" Timestamp: "+msgd.t+" Size: "+msgd.s+" ID: "+msgd.i+"}");
+     // client.send(new Date().toTimeString());
+   // client.send("Object: "+i+" {Pair: "+msgd.pair+" Price: "+msgd.p+" Timestamp: "+msgd.t+" Size: "+msgd.s+" ID: "+msgd.i+"}");
+     // client.send();
+     client.send(msgd.p);
     });
   }, 1000);
