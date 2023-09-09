@@ -20,7 +20,7 @@ const path = require('path')
 app.use('/static', express.static(path.join(__dirname, 'public')));
 var msgd = []
 const server = express()
-  .use((req, res) => res.sendFile('/home.html', { root: __dirname }))
+  .use((req, res) => res.sendFile('/main.html', { root: __dirname }))
   .listen(process.env.PORT || 3000, () => console.log(`Listening on ${3000}`));
 
   
