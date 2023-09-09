@@ -370,7 +370,251 @@
                 </div>
             </div>
             <div class="mid" id="conchart">
-                <script src="2.js"></script>
+               <!-- <script src="2.js"></script> -->
+                <script type="text/javascript">
+                    
+/*
+var chart = LightweightCharts.createChart(document.body, {
+	width: 1000,
+  height: 800,
+	crosshair: {
+		mode: LightweightCharts.CrosshairMode.Normal,
+	},
+});
+  */
+const chart = LightweightCharts.createChart(
+    document.getElementById('conchart'),
+    {
+       
+
+		layout: {
+            background: { color: '#222' },
+            textColor: '#DDD',
+        },
+        grid: {
+            vertLines: { color: '#444' },
+            horzLines: { color: '#444' },
+        },
+    }
+);
+
+chart.timeScale().setVisibleLogicalRange({ from: -40, to: 60 });
+chart.applyOptions({
+    crosshair: {
+        // Change mode from default 'magnet' to 'normal'.
+        // Allows the crosshair to move freely without snapping to datapoints
+        mode: LightweightCharts.CrosshairMode.Normal,
+
+        // Vertical crosshair line (showing Date in Label)
+        vertLine: {
+            width: 8,
+            color: '#C3BCDB44',
+            style: LightweightCharts.LineStyle.Solid,
+            labelBackgroundColor: '#9B7DFF',
+        },
+
+        // Horizontal crosshair line (showing Price in Label)
+        horzLine: {
+            color: '#9B7DFF',
+            labelBackgroundColor: '#9B7DFF',
+        },
+    },
+});
+var candleSeries = chart.addCandlestickSeries();
+
+    //var data =json;
+
+
+   let dataGlobal;
+
+   const getData = async () => {
+     const response = await fetch("./list1.json");
+     const data = await response.json();
+     dataGlobal = data;
+     return data;
+   };
+   
+   (async () => {
+     await getData();
+     console.log(dataGlobal);
+
+     candleSeries.setData(dataGlobal);
+
+
+     var lastClose = dataGlobal[dataGlobal.length - 1].close;
+     var lastIndex = dataGlobal.length - 1;
+     
+     var targetIndex = lastIndex + 105 + Math.round(Math.random() + 30);
+     var targetPrice = getRandomPrice();
+     
+     var currentIndex = lastIndex + 1;
+     var currentBusinessDay = { day: 5, month: 9, year: 2023 };
+     var ticksInCurrentBar = 0;
+     var currentBar = {
+         open: null,
+         high: null,
+         low: null,
+         close: null,
+         time: currentBusinessDay,
+     };
+     
+     function mergeTickToBar(price) {
+         if (currentBar.open === null) {
+             currentBar.open = price;
+             currentBar.high = price;
+             currentBar.low = price;
+             currentBar.close = price;
+         } else {
+             currentBar.close = price;
+             currentBar.high = Math.max(currentBar.high, price);
+             currentBar.low = Math.min(currentBar.low, price);
+         }
+         candleSeries.update(currentBar);
+     }
+     
+     function reset() {
+         candleSeries.setData(dataGlobal);
+         lastClose = dataGlobal[dataGlobal.length - 1].close;
+         lastIndex = dataGlobal.length - 1;
+     
+         targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
+         targetPrice = getRandomPrice();
+     
+         currentIndex = lastIndex + 1;
+         currentBusinessDay = { day: 29, month: 5, year: 2019 };
+         ticksInCurrentBar = 0;
+     }
+     
+     function getRandomPrice() {
+         return 10 + Math.round(Math.random() * 10000) / 100;
+     }
+     
+     function nextBusinessDay(time) {
+         var d = new Date();
+         d.setUTCFullYear(time.year);
+         d.setUTCMonth(time.month - 1);
+         d.setUTCDate(time.day + 1);
+         d.setUTCHours(0, 0, 0, 0);
+         return {
+             year: d.getUTCFullYear(),
+             month: d.getUTCMonth() + 1,
+             day: d.getUTCDate(),
+         };
+     }
+     function nextTime(){
+        const date = new Date();
+
+//let s = date.getSeconds();
+//let min = date.getMinutes();
+//let hour = date.getHours();
+//let day = date.getDate();
+//let month = date.getMonth() + 1;
+//let year = date.getFullYear();
+return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds(),
+};
+    
+}
+function getDateTime() {
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    if(month.toString().length == 1) {
+         month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+         day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+         hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+         minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+         second = '0'+second;
+    }   
+    var dateTime = year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;   
+   // var dateTime = hour+':'+minute+':'+second;  
+   
+     return Date.parse(dateTime)/1000;
+     
+}
+
+
+     setInterval(function() {
+        function loadJS(FILE_URL, async = true) {
+            let scriptEle = document.createElement("script");
+          
+            scriptEle.setAttribute("src", FILE_URL);
+            scriptEle.setAttribute("type", "text/javascript");
+            scriptEle.setAttribute("async", async);
+          
+            document.body.appendChild(scriptEle);
+          
+            // success event 
+            scriptEle.addEventListener("load", () => {
+              console.log("File loaded")
+            });
+             // error event
+            scriptEle.addEventListener("error", (ev) => {
+              console.log("Error on loading file", ev);
+            });
+          }
+          loadJS("list23.js", true);
+          console.log(dprice);
+          console.log(getDateTime())
+          // If we set async false, file2 is loaded and executed first, then file3 will be loaded 
+       //   loadJS("file2_path", false); 
+         // loadJS("file3_path", true);
+
+         var deltaY = targetPrice - lastClose;
+         var deltaX = targetIndex - lastIndex;
+         var angle = deltaY / deltaX;
+         var basePrice = lastClose + (currentIndex - lastIndex) * angle;
+         var noise = (0.1 - Math.random() * 0.1) + 1.0;
+         var noisedPrice = basePrice * noise;
+       //  mergeTickToBar(noisedPrice);
+        mergeTickToBar(dprice);
+         if (++ticksInCurrentBar === 10) {
+             // move to next bar
+             currentIndex++;
+             //currentBusinessDay = nextBusinessDay(currentBusinessDay);
+             currentBusinessDay = getDateTime();
+             currentBar = {
+                 open: null,
+                 high: null,
+                 low: null,
+                 close: null,
+                 time: currentBusinessDay,
+             };
+             console.log(currentBusinessDay);
+             ticksInCurrentBar = 0;
+             if (currentIndex === 5000) {
+                 reset();
+                 return;
+             }
+             if (currentIndex === targetIndex) {
+                 // change trend
+                 lastClose = noisedPrice;
+                 lastIndex = currentIndex;
+                 targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
+                 targetPrice = getRandomPrice();
+             }
+         }
+     }, 1000);
+   })();
+   
+                </script>
             </div>
             <div id="chartContainer" style=""></div>
             <div class="rsb">
