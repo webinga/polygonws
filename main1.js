@@ -6,7 +6,7 @@ var fs = require('fs');
 var app = express();
 const path = require('path')
 app.use('/static', express.static(path.join(__dirname, 'public')));
-var msgd = []
+var msgd = [];
 const server = express()
   .use((req, res) => res.sendFile('/main1.html', { root: __dirname }))
   .listen(process.env.PORT || 3000, () => console.log(`Listening on ${3000}`));
