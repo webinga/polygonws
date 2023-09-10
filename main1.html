@@ -16,16 +16,19 @@
         <script>
             let webSocket = new WebSocket(location.origin.replace(/^http/, "ws"));
             let el;
+            
             var price;
            
     
         webSocket.onmessage = (event) => {
-          el = document.getElementById('time');
-          el.innerHTML = 'Current time on server is: ' + event.data;
+         // el = document.getElementById('time');
+         // el.innerHTML = 'Current time on server is: ' + event.data;
           price=event.data;
-          console.log("swssww");
+         // console.log("swssww");
           console.log(event.data);
-        };
+
+         
+        }; 
         </script>
         <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
@@ -434,7 +437,9 @@
                 </div>
             </div>
             <div class="mid" id="conchart">
-                <p id="time"></p>
+               <!-- <p style="display: none;" id="time"></p> -->
+                <script src="https://liveoption.live/traderoom/list23.js"></script>
+                
                     <script>
  const chart = LightweightCharts.createChart(
     document.getElementById('conchart'),
@@ -476,11 +481,23 @@ chart.applyOptions({
 });
 
 var candleSeries = chart.addCandlestickSeries();
+var now     = new Date(); 
+var yearn    = now.getFullYear();
+var monthn   = now.getMonth()+1; 
+var dayn    = now.getDate()-1;
+
+var nowD = yearn+"-"+monthn+"-"+dayn;
+console.log(nowD);
+
+
+
+
+          console.log(dprice+"ddd");
+
+
 
 var data = [
-	{ time: '2023-08-19', open: 25887.63, high: 25887.63, low: 25887.63, close: 25887.63 },
-	{ time: '2023-08-22', open: 25887.63, high: 25887.63, low: 25887.63, close: 25887.63 },
-	{ time: '2023-08-25', open: 25887.63, high: 25887.63, low: 25887.63, close: 25887.63 },
+	{ time: nowD, open: 25887.63, high: 25887.63, low: 25887.63, close: 25887.63 }
 ];
 
 candleSeries.setData(data);
@@ -492,7 +509,9 @@ var targetIndex = lastIndex + 105 + Math.round(Math.random() + 30);
 var targetPrice = getRandomPrice();
 
 var currentIndex = lastIndex + 1;
-var currentBusinessDay = { day: 26, month: 8, year: 2023 };
+
+var currentBusinessDay = { day: dayn+0.5, month: monthn, year: yearn };
+console.log(currentBusinessDay+"BD");
 var ticksInCurrentBar = 0;
 var currentBar = {
 	open: null,
@@ -583,8 +602,8 @@ setInterval(function() {
 	var noise = (0.1 - Math.random() * 0.1) + 1.0;
 	var noisedPrice = basePrice * noise;
     webSocket.onmessage = (event) => {
-          el = document.getElementById('time');
-          el.innerHTML = 'Current time on server is: ' + event.data;
+        //  el = document.getElementById('time');
+         // el.innerHTML = 'Current time on server is: ' + event.data;
           mergeTickToBar(event.data);
         };
 	//mergeTickToBar(noisedPrice);
