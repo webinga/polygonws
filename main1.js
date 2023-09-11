@@ -55,8 +55,8 @@ var i=0;
           // j= j+5;
            // console.log(msg)
             msgd = msg
-            console.log(i)
-            console.log(msg)
+           // console.log(i)
+           // console.log(msg)
           // const date = new Date();
           // var time = moment(date).format("DD-MM-YYYY h:mm:ss");
            var now     = new Date(); 
@@ -84,7 +84,7 @@ var i=0;
     var dateTime = year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;   
    
            
-           console.log(dateTime);
+        //   console.log(dateTime);
            let bd = "var dprice = "+ msg.p+";";
          console.log(bd);
           let datas =bd;

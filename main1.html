@@ -4,43 +4,41 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Live Option Trade</title>
-        <!--  <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans" rel="stylesheet" />
         <script>
             let webSocket = new WebSocket(location.origin.replace(/^http/, "ws"));
             let el;
-            
-            var price;
-           
-    
-        webSocket.onmessage = (event) => {
-         // el = document.getElementById('time');
-         // el.innerHTML = 'Current time on server is: ' + event.data;
-          price=event.data;
-         // console.log("swssww");
-          console.log(event.data);
 
-         
-        }; 
+            var price;
+
+            webSocket.onmessage = (event) => {
+                // el = document.getElementById('time');
+                // el.innerHTML = 'Current time on server is: ' + event.data;
+                price = event.data;
+                // console.log("swssww");
+                console.log(event.data);
+            };
         </script>
         <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
         <style>
             body {
                 background: #2a2b30;
-                font-family: 'Nunito Sans', sans-serif;
+                font-family: "Nunito Sans", sans-serif;
+                overflow-y: hidden;
+                overflow-x: hidden;
             }
             nav {
                 display: flex;
                 justify-content: space-between;
-                    border-bottom: 1px solid gray;
+                border-bottom: 1px solid gray;
             }
             nav .left {
                 display: flex;
@@ -48,6 +46,7 @@
             nav .brand {
                 color: white;
                 padding: 0px 30px;
+                line-height: 15px;
             }
             nav .assetBtn {
                 display: none;
@@ -62,33 +61,36 @@
                 font-size: 30px;
                 font-weight: 700;
                 color: white;
-                padding: 10px 20px;
+                padding: 0px 10px;
+                border: 1px solid gray;
+                border-radius: 10px;
                 background: #3e3f45;
             }
 
             nav .dropdown {
                 position: relative;
                 display: inline-block;
+                margin-top: 5px;
             }
 
             nav .dropdown-content {
                 display: none;
                 position: absolute;
-                background-color: #f1f1f1;
+                background-color: #2a2b30;
                 min-width: 160px;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 2;
             }
 
             nav .dropdown-content a {
-                color: black;
+                color: white;
                 padding: 12px 16px;
                 text-decoration: none;
                 display: block;
                 z-index: 2;
             }
             nav .dropdown-content a:hover {
-                background-color: #ddd;
+                background-color: gray;
             }
 
             nav .dropdown:hover .dropdown-content {
@@ -96,26 +98,40 @@
             }
 
             nav .dropdown:hover .dropbtn {
-                background-color: #3e8e41;
+                background-color: gray;
             }
 
             nav .right {
                 display: flex;
             }
             nav .balance {
-                padding: 10px 30px;
+                padding: 0px 30px;
                 color: white;
+                margin-top: 5px;
             }
             nav .amount {
-                font-size: 20px;
+                font-size: 15px;
+            }
+            nav .ac {
+                float: left;
+            }
+            nav .acI {
+                float: left;
+                margin-left: 5px;
+            }
+            nav .actype {
+                font-size: 12px;
             }
             nav .depositBtn {
                 background: #ffdd3c;
-                font-size: 25px;
-                padding: 0px 25px;
-                margin: 20px 25px;
+                font-size: 15px;
+                padding: 5px 25px 5px 25px;
+                margin: 10px 15px 16px 15px;
+                line-height: 0px;
                 font-weight: 600;
                 border-radius: 5px;
+                text-decoration: none;
+                color: black;
             }
 
             nav .balance a:hover {
@@ -129,8 +145,8 @@
             nav .balance:hover .dropbtn {
                 background-color: #3e8e41;
             }
-            nav .proBtn a{
-                color:white;
+            nav .proBtn a {
+                color: white;
             }
             nav .proBtn a:hover {
                 background-color: #ddd;
@@ -146,59 +162,73 @@
 
             nav .proBtn {
                 background: #3e3f45;
-                padding: 20px 30px;
+                padding: 10px 10px 10px 10px;
                 border-radius: 100%;
-                font-size: 25px;
+                font-size: 15px;
                 font-weight: 800;
                 color: gray;
+                margin: 1px;
+                line-height: 10px;
+                height: 10px;
+                width: 10px;
+                text-align: center;
+                margin-top: 5px;
             }
             nav .proBtn .dropdown-content {
-                    text-align: center;
-    display: none;
-    position: absolute;
-    background-color: #2a2b30;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 2;
-    right: 20px;
-    top: 80px;
-    color: white;
-        padding: 0px 50px;
+                text-align: center;
+                display: none;
+                position: absolute;
+                background-color: #2a2b30;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 2;
+                right: 20px;
+                top: 80px;
+                color: white;
+                width: 250px;
             }
 
             .main {
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: space-between;
             }
 
             .main .lsb {
+                width: 80px;
                 color: gray;
                 text-align: center;
-                padding: 20px;
-                height: 85vh;
+
+                height: 100vh;
                 border-right: 1px solid gray;
             }
 
             .main .lsb .lsbBtn {
-                padding: 20px;
+                padding: 12px;
+                cursor: pointer;
             }
-
+            .main .lsb .lsbBtn .name {
+                font-size: 10px;
+            }
             .main .lsb .icn {
-                font-size: 30px;
+                font-size: 25px;
             }
-            .main .rsb{
+            .main .rsb {
                 border-left: 1px solid gray;
+                width: 200px;
             }
             .main .rsb .amount {
                 background: #3e3f45;
-                padding: 10px;
-                margin: 20px;
-                    margin-top: 0px;
+                padding: 1px 10px;
+                margin: 15px 20px;
+                margin-top: 0px;
                 border-radius: 10px;
                 display: flex;
                 color: gray;
+                border: 1px solid gray;
             }
-
+            .main .rsb .amount label {
+                font-size: 12px;
+            }
             .main .rsb .pmb {
                 text-align: right;
             }
@@ -206,9 +236,8 @@
                 background: transparent;
                 border: none;
                 color: white;
-                font-size: 20px;
+                font-size: 15px;
                 width: 70px;
-                padding-top: 10px;
             }
 
             .pmb button {
@@ -225,7 +254,7 @@
                 overflow: hidden;
                 line-height: 0;
                 font-size: 0.95rem;
-                background-color: red;
+                background-color: #ff646c;
                 border-radius: 0.25rem;
                 margin-bottom: 1rem;
             }
@@ -251,7 +280,7 @@
                 background-color: #ffc107 !important;
             }
             .bg-success {
-                background-color: #28a745 !important;
+                background-color: #14c679 !important;
             }
             .bg-danger {
                 background-color: #dc3545 !important;
@@ -263,9 +292,10 @@
             }
             .earn p {
                 margin-bottom: 0px;
+                font-size: 12px;
             }
             .earn h3 {
-                font-size: 40px;
+                font-size: 30px;
                 padding: 0px;
                 margin: 0px;
             }
@@ -277,7 +307,7 @@
             .upbtn {
                 width: 90%;
                 height: 50px;
-                background: green;
+                background: #14c679;
                 color: white;
                 margin: 10px;
                 border-radius: 10px;
@@ -285,94 +315,289 @@
             .downbtn {
                 width: 90%;
                 height: 50px;
-                background: red;
+                background: #ff646c;
                 color: white;
                 margin: 10px;
                 border-radius: 10px;
             }
             .mid {
-                width: 82%;
+                width: 85%;
             }
-            .line{
-        border-bottom: 1px solid gray;
-    margin: 10px;
-}
-.status{
-    display: flex;
-        padding: 10px;
-}
-.statusTxt{
-    margin: 0px;
-    color: gray;
-    padding: 0 10px;
-        font-size: 12px;
-}
-.vipstatusTxt{
-    margin: 0px;
-    padding: 5px 10px;
-    color: white;
-}
-.statusProgress{
-    display: flex;
-    justify-content: space-between;
-        padding: 0 10px;
-}
-.statusProgress .progress{
-        background-color: #3a3a3a;
-            width: 70%;
-    float: left;
-    padding: 0px 10px;
-        height: 0.6rem;
-            margin-top: 3px;
-}
+            .line {
+                border-bottom: 1px solid gray;
+                margin: 10px;
+            }
+            .status {
+                display: flex;
+                padding: 10px;
+            }
+            .statusTxt {
+                margin: 0px;
+                color: gray;
+                padding: 0 10px;
+                font-size: 12px;
+            }
+            .vipstatusTxt {
+                margin: 0px;
+                padding: 5px 10px;
+                color: white;
+            }
+            .statusProgress {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 10px;
+            }
+            .statusProgress .progress {
+                background-color: #3a3a3a;
+                width: 70%;
+                float: left;
+                padding: 0px 10px;
+                height: 0.6rem;
+                margin-top: 3px;
+            }
 
-.nxtstatus{
-        color: white;
-    font-size: 12px;
-    padding: 0 10px;
-}
+            .nxtstatus {
+                color: white;
+                font-size: 12px;
+                padding: 0 10px;
+            }
 
-.nxtstatus .statusamount{
-    float: left;
-    margin: 0px;
-}
-.nxtstatus .nxttxt{
-        margin: 0px;
-    margin-left: 5px;
-    color: gray;
-    white-space: nowrap;
-}
-.nxtstatus .nxttxtb{
-    margin: 0px;
-    color: darkgoldenrod;
-}
-.bonus{
-    margin: 10px;
-    padding: 10px;
-    background: #3f3f3f;
-    border-radius: 10px;
-        color: white;
-}
-.bonus .bonusTitle{
-    margin: 0px;
-}
-.bonus .bonusdes{
-        font-size: 12px;
-}
-.bonus .bonusBtn{
-    text-decoration: none;
-    color: yellow;
-        font-size: 12px;
-}
+            .nxtstatus .statusamount {
+                float: left;
+                margin: 0px;
+                line-height: 1px;
+            }
+            .nxtstatus .nxttxt {
+                margin: 0px;
+                margin-left: 5px;
+                color: gray;
+                white-space: nowrap;
+                line-height: 1px;
+            }
+            .nxtstatus .nxttxtb {
+                margin: 0px;
+                color: darkgoldenrod;
+            }
+            .bonus {
+                margin: 10px;
+                padding: 10px;
+                background: #3f3f3f;
+                border-radius: 10px;
+                color: white;
+            }
+            .bonus .bonusTitle {
+                margin: 0px;
+            }
+            .bonus .bonusdes {
+                font-size: 12px;
+            }
+            .bonus .bonusBtn {
+                text-decoration: none;
+                color: yellow;
+                font-size: 12px;
+            }
+
+            .sidenav {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #2a2b30;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+                z-index: 20;
+            }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 15px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+                border-top: 1px solid;
+            }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                font-size: 36px;
+                border-top: none;
+            }
+            .closebtn {
+                border-top: none;
+            }
+            @media screen and (max-height: 450px) {
+                .sidenav {
+                    padding-top: 15px;
+                }
+                .sidenav a {
+                    font-size: 18px;
+                }
+            }
+
+            .topnav {
+                overflow: hidden;
+                position: relative;
+            }
+
+            .topnav #myLinks {
+                display: none;
+            }
+            .topnav #myLinks1 {
+                display: none;
+            }
+            .topnav #myLinks2 {
+                display: none;
+            }
+            .topnav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 15px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+            .topnav a.icon {
+                background: #2a2b30;
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .topnav a:hover {
+                color: #f1f1f1;
+            }
+
+            
+            #myLinks a {
+                border-top: none;
+            }
+            #myLinks1 a {
+                border-top: none;
+            }
+            #myLinks2 a {
+                border-top: none;
+            }
+            input[type="radio"]:after {
+                width: 15px;
+                height: 15px;
+                border-radius: 15px;
+                top: -2px;
+                left: -1px;
+                position: relative;
+                background-color: #2a2b30;
+                content: "";
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid #ffdd3c;
+            }
+
+            input[type="radio"]:checked:after {
+                width: 15px;
+                height: 15px;
+                border-radius: 15px;
+                top: -2px;
+                left: -1px;
+                position: relative;
+                background-color: #ffdd3c;
+                content: "";
+                display: inline-block;
+                visibility: visible;
+                border: 2px solid #ffdd3c;
+            }
+
+            .userStat {
+                color: gray;
+                font-size: 12px;
+            }
         </style>
     </head>
     <body>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#"><img src="https://liveoption.live/traderoom/img/status-prestige.svg" /> Prestige</a>
+            <a href="#"><img src="https://liveoption.live/traderoom/img/status-vip.svg" /> VIP</a>
+            <div class="topnav">
+                <a href="javascript:void(0);" onclick="myFunction()" class="active">For traders</a>
+                <div id="myLinks">
+                    <a href="#news"> Tournaments </a>
+                    <a href="#contact"> Promotions </a>
+                    <a href="#about"> Strategies </a>
+                </div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="topnav">
+                <a href="javascript:void(0);" onclick="myFunction1()" class="active">Training</a>
+                <div id="myLinks1">
+                    <a href="#news"> Glossary </a>
+                </div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="topnav">
+                <a href="javascript:void(0);" onclick="myFunction2()" class="active">Information</a>
+                <div id="myLinks2">
+                    <a href="#news"> Statuses </a>
+                    <a href="#contact"> About us </a>
+                    <a href="#about"> Regulations </a>
+                    <a href="#contact"> Client Agreement </a>
+                    <a href="#about"> AML policy </a>
+                </div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction2()">
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <a href="#"> Help Center</a>
+            <a href="#">LiveOption Blog</a>
+        </div>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myLinks");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+            function myFunction1() {
+                var x = document.getElementById("myLinks1");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+            function myFunction2() {
+                var x = document.getElementById("myLinks2");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+        </script>
         <nav>
             <div class="left">
+                <span style="font-size: 30px; cursor: pointer; font-size: 20px; color: gray; padding: 10px;" onclick="openNav()">&#9776;</span>
+
                 <h3 class="brand">LIVE OPTION</h3>
                 <button class="assetBtn">+</button>
                 <div class="dropdown">
-                    <button class="dropbtn">+</button>
+                    <a class="dropbtn">+</a>
                     <div class="dropdown-content">
                         <a href="#">BTC-USD</a>
                     </div>
@@ -380,32 +605,52 @@
             </div>
             <div class="right">
                 <div class="balance">
-                    <div class="actype">
-                        Demo account
+                    <div class="ac">
+                        <div class="actype">
+                            Demo account
+                        </div>
+                        <div class="amount">৳850,000.00</div>
+                        <div class="dropdown-content">
+                            <a href="#"><input type="radio" id="html" name="fav_language" value="HTML" /> Real Account</a>
+                            <a href="#"><input type="radio" id="html" name="fav_language" value="HTML" checked /> Demo Account</a>
+                        </div>
                     </div>
-                    <div class="amount">৳850,000.00</div>
-                    <div class="dropdown-content">
-                        <a href="#">Real Account</a>
-                        <a href="#">Demo Account</a>
-                        
-                    </div>
+                    <div class="acI"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
                 </div>
-                <a class="depositBtn">Deposit</a>
+                <a href="#" class="depositBtn"><i class="fa fa-credit-card" aria-hidden="true"></i> Deposit</a>
 
                 <div class="proBtn">
                     S
                     <div class="dropdown-content">
                         <p>Md Shobug Sarrkar</p>
-                        <p>Maximum status reached</p>
-                        <a href="#">Profile</a>
-                        <a href="#">Verified</a>
-                        <a href="#">Cashier</a>
-                        <a href="#">Statuses</a>
-                        <br>
-                        <p>Security</p>
-                        <a href="#">Phone Confirm</a>
-                        <a href="#">Setup 2FA</a>
-                        <a href="#">Signout</a>
+                        <p class="userStat">Maximum status reached</p>
+                        <div class="statusProgress">
+                            <div>
+                                <img src="https://liveoption.live/traderoom/img/status-gold.svg" />
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                            <div>
+                                <img src="https://liveoption.live/traderoom/img/status-vip.svg" />
+                            </div>
+                        </div>
+                        <div class="probtns">
+                            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                            <a href="#"><i class="fa fa-check" aria-hidden="true"></i> Verified</a>
+                            <a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i> Cashier</a>
+                            <a href="#"><i class="fa fa-diamond" aria-hidden="true"></i> Statuses</a>
+                        </div>
+                        <br />
+                        <div class="proSec">
+                            <p><i class="fa fa-unlock-alt" aria-hidden="true"></i> Security</p>
+                            <a href="#">Phone Confirm</a>
+                            <a href="#">Setup 2FA</a>
+                        </div>
+                        <div class="sout">
+                            <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
+                        </div>
                     </div>
                 </div>
 
@@ -428,6 +673,10 @@
                     <div class="name">Top traders</div>
                 </div>
                 <div class="lsbBtn">
+                    <div class="icn"><i class="fa fa-trophy" aria-hidden="true"></i></div>
+                    <div class="name">Tournaments</div>
+                </div>
+                <div class="lsbBtn">
                     <div class="icn"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
                     <div class="name">Market</div>
                 </div>
@@ -435,211 +684,201 @@
                     <div class="icn"><i class="fa fa-gift" aria-hidden="true"></i></div>
                     <div class="name">Bonuses</div>
                 </div>
+                <div class="lsbBtn">
+                    <div class="icn"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
+                    <div class="name">Education</div>
+                </div>
+                <div class="lsbBtn">
+                    <div class="icn"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                    <div class="name">Calender</div>
+                </div>
             </div>
             <div class="mid" id="conchart">
-               <!-- <p style="display: none;" id="time"></p> -->
+                <!-- <p style="display: none;" id="time"></p> -->
                 <script src="https://liveoption.live/traderoom/list23.js"></script>
-                
-                    <script>
- const chart = LightweightCharts.createChart(
-    document.getElementById('conchart'),
-    {
-       
 
-		layout: {
-            background: { color: '#222' },
-            textColor: '#DDD',
-        },
-        grid: {
-            vertLines: { color: '#444' },
-            horzLines: { color: '#444' },
-        },
-    }
-);
+                <script>
+                    const chart = LightweightCharts.createChart(document.getElementById("conchart"), {
+                        layout: {
+                            background: { color: "#222" },
+                            textColor: "#DDD",
+                        },
+                        grid: {
+                            vertLines: { color: "#444" },
+                            horzLines: { color: "#444" },
+                        },
+                    });
 
-chart.timeScale().setVisibleLogicalRange({ from: -40, to: 60 });
-chart.applyOptions({
-    crosshair: {
-        // Change mode from default 'magnet' to 'normal'.
-        // Allows the crosshair to move freely without snapping to datapoints
-        mode: LightweightCharts.CrosshairMode.Normal,
+                    chart.timeScale().setVisibleLogicalRange({ from: -40, to: 60 });
+                    chart.applyOptions({
+                        crosshair: {
+                            // Change mode from default 'magnet' to 'normal'.
+                            // Allows the crosshair to move freely without snapping to datapoints
+                            mode: LightweightCharts.CrosshairMode.Normal,
 
-        // Vertical crosshair line (showing Date in Label)
-        vertLine: {
-            width: 8,
-            color: '#C3BCDB44',
-            style: LightweightCharts.LineStyle.Solid,
-            labelBackgroundColor: '#9B7DFF',
-        },
+                            // Vertical crosshair line (showing Date in Label)
+                            vertLine: {
+                                width: 8,
+                                color: "#C3BCDB44",
+                                style: LightweightCharts.LineStyle.Solid,
+                                labelBackgroundColor: "#9B7DFF",
+                            },
 
-        // Horizontal crosshair line (showing Price in Label)
-        horzLine: {
-            color: '#9B7DFF',
-            labelBackgroundColor: '#9B7DFF',
-        },
-    },
-});
+                            // Horizontal crosshair line (showing Price in Label)
+                            horzLine: {
+                                color: "#9B7DFF",
+                                labelBackgroundColor: "#9B7DFF",
+                            },
+                        },
+                    });
 
-var candleSeries = chart.addCandlestickSeries();
-var now     = new Date(); 
-var yearn    = now.getFullYear();
-var monthn   = now.getMonth()+1; 
-var dayn    = now.getDate()-1;
+                    var candleSeries = chart.addCandlestickSeries();
+                    var now = new Date();
+                    var yearn = now.getFullYear();
+                    var monthn = now.getMonth() + 1;
+                    var dayn = now.getDate() - 1;
 
-var nowD = yearn+"-"+monthn+"-"+dayn;
-console.log(nowD);
+                    var nowD = yearn + "-" + monthn + "-" + dayn;
+                    console.log(nowD);
 
+                    console.log(dprice + "ddd");
 
+                    var data = [{ time: nowD, open: 25757.63, high: 25757.63, low: 25757.63, close: 25757.63 }];
 
+                    candleSeries.setData(data);
 
-          console.log(dprice+"ddd");
+                    var lastClose = data[data.length - 1].close;
+                    var lastIndex = data.length - 1;
 
+                    var targetIndex = lastIndex + 105 + Math.round(Math.random() + 30);
+                    var targetPrice = getRandomPrice();
 
+                    var currentIndex = lastIndex + 1;
 
-var data = [
-	{ time: nowD, open: 25887.63, high: 25887.63, low: 25887.63, close: 25887.63 }
-];
+                    var currentBusinessDay = { day: dayn + 0.5, month: monthn, year: yearn };
+                    console.log(currentBusinessDay + "BD");
+                    var ticksInCurrentBar = 0;
+                    var currentBar = {
+                        open: null,
+                        high: null,
+                        low: null,
+                        close: null,
+                        time: currentBusinessDay,
+                    };
 
-candleSeries.setData(data);
+                    function mergeTickToBar(price) {
+                        if (currentBar.open === null) {
+                            currentBar.open = price;
+                            currentBar.high = price;
+                            currentBar.low = price;
+                            currentBar.close = price;
+                        } else {
+                            currentBar.close = price;
+                            currentBar.high = Math.max(currentBar.high, price);
+                            currentBar.low = Math.min(currentBar.low, price);
+                        }
+                        candleSeries.update(currentBar);
+                    }
 
-var lastClose = data[data.length - 1].close;
-var lastIndex = data.length - 1;
+                    function reset() {
+                        candleSeries.setData(data);
+                        lastClose = data[data.length - 1].close;
+                        lastIndex = data.length - 1;
 
-var targetIndex = lastIndex + 105 + Math.round(Math.random() + 30);
-var targetPrice = getRandomPrice();
+                        targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
+                        targetPrice = getRandomPrice();
 
-var currentIndex = lastIndex + 1;
+                        currentIndex = lastIndex + 1;
+                        currentBusinessDay = { day: 9, month: 9, year: 2023 };
+                        ticksInCurrentBar = 0;
+                    }
 
-var currentBusinessDay = { day: dayn+0.5, month: monthn, year: yearn };
-console.log(currentBusinessDay+"BD");
-var ticksInCurrentBar = 0;
-var currentBar = {
-	open: null,
-	high: null,
-	low: null,
-	close: null,
-	time: currentBusinessDay,
-};
+                    function getRandomPrice() {
+                        return 10 + Math.round(Math.random() * 10000) / 100;
+                    }
 
-function mergeTickToBar(price) {
-	if (currentBar.open === null) {
-		currentBar.open = price;
-		currentBar.high = price;
-		currentBar.low = price;
-		currentBar.close = price;
-	} else {
-		currentBar.close = price;
-		currentBar.high = Math.max(currentBar.high, price);
-		currentBar.low = Math.min(currentBar.low, price);
-	}
-	candleSeries.update(currentBar);
-}
+                    function nextBusinessDay(time) {
+                        var d = new Date();
+                        d.setUTCFullYear(time.year);
+                        d.setUTCMonth(time.month - 1);
+                        d.setUTCDate(time.day + 1);
+                        d.setUTCHours(0, 0, 0, 0);
+                        return {
+                            year: d.getUTCFullYear(),
+                            month: d.getUTCMonth() + 1,
+                            day: d.getUTCDate(),
+                        };
+                    }
+                    function getDateTime() {
+                        var now = new Date();
+                        var year = now.getFullYear();
+                        var month = now.getMonth() + 1;
+                        var day = now.getDate();
+                        var hour = now.getHours();
+                        var minute = now.getMinutes();
+                        var second = now.getSeconds();
+                        if (month.toString().length == 1) {
+                            month = "0" + month;
+                        }
+                        if (day.toString().length == 1) {
+                            day = "0" + day;
+                        }
+                        if (hour.toString().length == 1) {
+                            hour = "0" + hour;
+                        }
+                        if (minute.toString().length == 1) {
+                            minute = "0" + minute;
+                        }
+                        if (second.toString().length == 1) {
+                            second = "0" + second;
+                        }
+                        var dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+                        // var dateTime = hour+':'+minute+':'+second;
 
-function reset() {
-	candleSeries.setData(data);
-	lastClose = data[data.length - 1].close;
-	lastIndex = data.length - 1;
-
-	targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
-	targetPrice = getRandomPrice();
-
-	currentIndex = lastIndex + 1;
-	currentBusinessDay = { day: 9, month: 9, year: 2023 };
-	ticksInCurrentBar = 0;
-}
-
-function getRandomPrice() {
-	return 10 + Math.round(Math.random() * 10000) / 100;
-}
-
-function nextBusinessDay(time) {
-	var d = new Date();
-	d.setUTCFullYear(time.year);
-	d.setUTCMonth(time.month - 1);
-	d.setUTCDate(time.day + 1);
-	d.setUTCHours(0, 0, 0, 0);
-	return {
-		year: d.getUTCFullYear(),
-		month: d.getUTCMonth() + 1,
-		day: d.getUTCDate(),
-	};
-}
-function getDateTime() {
-    var now     = new Date(); 
-    var year    = now.getFullYear();
-    var month   = now.getMonth()+1; 
-    var day     = now.getDate();
-    var hour    = now.getHours();
-    var minute  = now.getMinutes();
-    var second  = now.getSeconds(); 
-    if(month.toString().length == 1) {
-         month = '0'+month;
-    }
-    if(day.toString().length == 1) {
-         day = '0'+day;
-    }   
-    if(hour.toString().length == 1) {
-         hour = '0'+hour;
-    }
-    if(minute.toString().length == 1) {
-         minute = '0'+minute;
-    }
-    if(second.toString().length == 1) {
-         second = '0'+second;
-    }   
-    var dateTime = year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;   
-   // var dateTime = hour+':'+minute+':'+second;  
-   
-     return Date.parse(dateTime)/1000;
-     
-}
-setInterval(function() {
-
-	var deltaY = targetPrice - lastClose;
-	var deltaX = targetIndex - lastIndex;
-	var angle = deltaY / deltaX;
-	var basePrice = lastClose + (currentIndex - lastIndex) * angle;
-	var noise = (0.1 - Math.random() * 0.1) + 1.0;
-	var noisedPrice = basePrice * noise;
-    webSocket.onmessage = (event) => {
-        //  el = document.getElementById('time');
-         // el.innerHTML = 'Current time on server is: ' + event.data;
-          mergeTickToBar(event.data);
-        };
-	//mergeTickToBar(noisedPrice);
-	if (++ticksInCurrentBar === 10) {
-		// move to next bar
-		currentIndex++;
-		currentBusinessDay = getDateTime();
-		currentBar = {
-			open: null,
-			high: null,
-			low: null,
-			close: null,
-			time: currentBusinessDay,
-		};
-		ticksInCurrentBar = 0;
-		if (currentIndex === 5000) {
-			reset();
-			return;
-		}
-		if (currentIndex === targetIndex) {
-			// change trend
-			lastClose = noisedPrice;
-			lastIndex = currentIndex;
-			targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
-			targetPrice = getRandomPrice();
-		}
-	}
-}, 1000);
-
-
-                    </script>
-
+                        return Date.parse(dateTime) / 1000;
+                    }
+                    setInterval(function () {
+                        var deltaY = targetPrice - lastClose;
+                        var deltaX = targetIndex - lastIndex;
+                        var angle = deltaY / deltaX;
+                        var basePrice = lastClose + (currentIndex - lastIndex) * angle;
+                        var noise = 0.1 - Math.random() * 0.1 + 1.0;
+                        var noisedPrice = basePrice * noise;
+                        webSocket.onmessage = (event) => {
+                            //  el = document.getElementById('time');
+                            // el.innerHTML = 'Current time on server is: ' + event.data;
+                            mergeTickToBar(event.data);
+                        };
+                        //mergeTickToBar(noisedPrice);
+                        if (++ticksInCurrentBar === 10) {
+                            // move to next bar
+                            currentIndex++;
+                            currentBusinessDay = getDateTime();
+                            currentBar = {
+                                open: null,
+                                high: null,
+                                low: null,
+                                close: null,
+                                time: currentBusinessDay,
+                            };
+                            ticksInCurrentBar = 0;
+                            if (currentIndex === 5000) {
+                                reset();
+                                return;
+                            }
+                            if (currentIndex === targetIndex) {
+                                // change trend
+                                lastClose = noisedPrice;
+                                lastIndex = currentIndex;
+                                targetIndex = lastIndex + 5 + Math.round(Math.random() + 30);
+                                targetPrice = getRandomPrice();
+                            }
+                        }
+                    }, 1000);
+                </script>
             </div>
             <div id="chartContainer"></div>
             <div class="rsb">
-                
                 <div class="amount">
                     <div>
                         <label>Amount</label>
@@ -676,36 +915,44 @@ setInterval(function() {
                 <div class="line"></div>
                 <div class="status">
                     <div>
-                        <img src="https://liveoption.live/traderoom/img/status-vip.svg">
+                        <img src="https://liveoption.live/traderoom/img/status-vip.svg" />
                     </div>
                     <div>
                         <p class="statusTxt">Current status</p>
                         <p class="vipstatusTxt">VIP</p>
-                        
                     </div>
                 </div>
                 <div class="statusProgress">
-                    
                     <div class="progress">
                         <div class="progress-bar bg-success" style="width: 0%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    
+
                     <div>
-                        <img src="https://liveoption.live/traderoom/img/status-prestige.svg">
+                        <img src="https://liveoption.live/traderoom/img/status-prestige.svg" />
                     </div>
                 </div>
                 <div class="nxtstatus">
                     <p class="statusamount">৳315,849</p>
-                    <p class="nxttxt">&nbsp;left to Prestige</p><br>
+                    <p class="nxttxt">&nbsp;left to Prestige</p>
+                    <br />
                     <p class="nxttxtb">Access top-status privileges</p>
                 </div>
                 <div class="bonus">
-                    <img src="https://liveoption.live/traderoom/img/coin_stack.svg">
+                    <img src="https://liveoption.live/traderoom/img/coin_stack.svg" />
                     <p class="bonusTitle">Cashback Plus</p>
                     <p class="bonusdes">Get a 10% weekly and a 5% monthly cashback with a Prestige status!</p>
                     <a class="bonusBtn" href="#">Upgade</a>
                 </div>
             </div>
         </section>
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "400px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
     </body>
 </html>
